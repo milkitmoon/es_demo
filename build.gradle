@@ -1,0 +1,76 @@
+plugins {
+	id 'org.springframework.boot' version '3.0.6'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id 'java'
+	id 'war'
+}
+
+group = 'com.milkit'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '18'
+targetCompatibility = '18'
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-logging'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'com.sun.xml.bind:jaxb-core:4.0.1'
+	implementation 'com.sun.xml.bind:jaxb-impl:4.0.1'
+	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+	implementation 'com.opencsv:opencsv:5.7.1'
+	implementation 'org.apache.commons:commons-lang3:3.0'
+	implementation 'org.slf4j:slf4j-api:2.0.6'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	implementation 'org.projectlombok:lombok:1.18.26'
+	implementation 'com.h2database:h2:2.1.214'
+	implementation 'org.hibernate.orm:hibernate-community-dialects'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+	annotationProcessor 'org.projectlombok:lombok:1.18.26'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.projectlombok:lombok:1.18.26'
+	testImplementation 'org.testcontainers:elasticsearch:1.18.3'
+	testImplementation 'org.testcontainers:testcontainers:1.17.5'
+	testImplementation 'org.testcontainers:junit-jupiter:1.17.5'
+	testImplementation 'org.assertj:assertj-core:3.24.2'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+bootWar {
+	archiveBaseName="es_demo"
+	archiveVersion="0.0.1-SNAPSHOT"
+}
+
+war {
+	enabled = true
+	archiveFileName = '${archiveBaseName}.war'
+}
