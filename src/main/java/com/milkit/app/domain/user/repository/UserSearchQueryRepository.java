@@ -51,7 +51,7 @@ public class UserSearchQueryRepository {
         }
 
         if(StringUtils.hasText(userDocument.getDescription())) {
-            query.addCriteria(Criteria.where("description").is(userDocument.getDescription()));
+            query.addCriteria(Criteria.where("description").matches(userDocument.getDescription()));
         }
 
         return query;
