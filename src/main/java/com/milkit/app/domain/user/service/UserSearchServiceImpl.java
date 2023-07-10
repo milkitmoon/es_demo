@@ -50,6 +50,19 @@ public class UserSearchServiceImpl {
 		return iterableToList(result);
 	}
 
+	@Transactional
+	public List<UserDocument> saveAll(List<User> users) {
+		List<UserDocument> userDocumentList
+				= users.stream().map(UserDocument::from).collect(Collectors.toList());
+		Iterable<UserDocument> result = userSearchRepository.saveAll(userDocumentList);
+
+		return iterableToList(result);
+	}
+
+	public UserDocument save(User user) {
+		return userSearchRepository.save(UserDocument.from(user));
+	}
+
 	public List<UserDocument> findAll() {
 		Iterable<UserDocument> result = userSearchRepository.findAll();
 
@@ -68,8 +81,8 @@ public class UserSearchServiceImpl {
 		return userSearchRepository.findByUseYn(useYn, pageable);
 	}
 
-	public Page<UserDocument> searchByCondition(UserDocument userDocument, Pageable pageable) {
-		return (Page<UserDocument>)SearchHitSupport.unwrapSearchHits(userSearchQueryRepository.findByCondition(userDocument, pageable));
+	public Page<UserDocument> searchByCondition(User user, Pageable pageable) {
+		return (Page<UserDocument>)SearchHitSupport.unwrapSearchHits(userSearchQueryRepository.findByCondition(UserDocument.from(user), pageable));
 	}
 
 	public void deleteAll() {
