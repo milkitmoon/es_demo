@@ -1,11 +1,12 @@
 package com.milkit.app.domain.user.service;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import com.milkit.app.common.exception.ServiceException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,22 +17,26 @@ import com.milkit.app.domain.user.User;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 @SpringBootTest
 @Slf4j
 class UserServiceTest {
 
 	@Autowired
-    private UserServiceImpl userInfoService;
-	
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+    private UserServiceImpl userService;
+
+	@AfterEach
+	public void end() {
+		userService.deleteAll();
+	}
 
 	@Test
 	@DisplayName("1. 사용자 ID 별 조회 테스트.")
 	public void select_test() {
-		userInfoService.insert(new User("test22", "test22"));
-		User userInfo = userInfoService.select("test22");
+		userService.save(new User("test22", "test22"));
+		User userInfo = userService.select("test22");
 
 		assertNotNull(userInfo);
 	}
@@ -39,50 +44,40 @@ class UserServiceTest {
 	@Test
 	@DisplayName("2. 전체조회_테스트.")
 	public void selectAll_test() {
-		userInfoService.insert(new User("test88", "test88"));
-		userInfoService.insert(new User("test99", "test99"));
+		userService.save(new User("test88", "test88"));
+		userService.save(new User("test99", "test99"));
 		
-		List<User> list = userInfoService.selectAll();
+		List<User> list = userService.selectAll();
 
 		assertNotNull(list);
 	}
 
 	@Test
-	@DisplayName("3. 등록 테스트.")
-	public void insert_test() {
+	@DisplayName("3. ID조회_테스트.")
+	public void selectByIds_test() {
+		userService.save(new User("test88", "test88"));
+		userService.save(new User("test99", "test99"));
+
+		PageRequest pageable = PageRequest.of(0, 10);
+
+		List<User> savedUsers = userService.selectAll();
+
+		List<Long> ids = savedUsers
+				.stream()
+				.map(e -> e.getId())
+				.collect(Collectors.toCollection(ArrayList::new));
+
+		Page<User> list = userService.select(ids, pageable);
+
+		assertNotNull(list);
+	}
+
+	@Test
+	@DisplayName("4. 등록 테스트.")
+	public void save_test() {
 		User userInfo = new User("test33", "test33");
-		User result = userInfoService.insert(userInfo);
+		User result = userService.save(userInfo);
 
 		assertNotNull(result);
-	}
-
-	@Test
-	@DisplayName("4. 회원가입 테스트.")
-	public void signup_test() {
-		User user = User
-		.builder()
-		.userId("signup@milkit.com")
-		.password("test")
-		.role("ROLE_MEMBER")
-		.build();
-		
-		User result = userInfoService.signup(user);
-
-		assertNotNull(result);
-	}
-
-	@Test
-	@DisplayName("5. 잘못된 회원정보형식으로 회원가입을 요청했을 시 예외를 테스트")
-	public void signup_user_info_exception_test() {
-		User user = User
-				.builder()
-				.userId("testUser")
-				.password("test")
-				.role("ROLE_MEMBER")
-				.build();
-
-		assertThatThrownBy(() -> userInfoService.signup(user) )
-				.isInstanceOf(ServiceException.class)
-				.hasMessageContaining("이메일 형식이 아닙니다. 입력정보를 확인해 주세요");
 	}
 }
