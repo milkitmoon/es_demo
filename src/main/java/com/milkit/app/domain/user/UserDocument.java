@@ -27,7 +27,7 @@ public class UserDocument {
     @Field(type = FieldType.Keyword)
     private String userId;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Keyword)
     private String role;
 
     @Field(type = FieldType.Keyword)
