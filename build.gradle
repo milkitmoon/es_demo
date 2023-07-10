@@ -20,6 +20,11 @@ configurations {
 	}
 }
 
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile){
+	options.encoding = "UTF-8"
+}
+
 repositories {
 	mavenCentral()
 }
@@ -36,7 +41,6 @@ dependencies {
 	implementation 'com.sun.xml.bind:jaxb-impl:4.0.1'
 	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
 	implementation 'com.opencsv:opencsv:5.7.1'
-	implementation 'org.apache.commons:commons-lang3:3.0'
 	implementation 'org.slf4j:slf4j-api:2.0.6'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -44,7 +48,7 @@ dependencies {
 	implementation 'org.projectlombok:lombok:1.18.26'
 	implementation 'com.h2database:h2:2.1.214'
 	implementation 'org.hibernate.orm:hibernate-community-dialects'
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
@@ -66,11 +70,11 @@ test {
 }
 
 bootWar {
-	archiveBaseName="es_demo"
-	archiveVersion="0.0.1-SNAPSHOT"
+	archiveBaseName = 'es_demo'
+	archiveVersion = '0.0.1-SNAPSHOT'
 }
 
 war {
 	enabled = true
-	archiveFileName = '${archiveBaseName}.war'
+	archiveFileName = 'es_demo.war'
 }

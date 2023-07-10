@@ -7,11 +7,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema
 public class GenericResponse<T> implements Serializable {
 
-	@Schema(description="결과코드", ref="형식 (0:성공, others:실패)")
+	@Schema(description="결과코드", example="형식 (0:성공, others:실패)")
 	private String code;
 	@Schema(description="결과메시지")
 	private String message;
-	@Schema(description="결과값", ref="형식 (template 으로 정의된 값)")
+	@Schema(description="결과값", example="형식 (template 으로 정의된 값)")
 	private T value;
 
 	public GenericResponse() {

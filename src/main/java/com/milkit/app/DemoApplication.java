@@ -15,11 +15,4 @@ public class DemoApplication extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(DemoApplication.class);
 	}
-	
-/*		외부 DB 툴에서 메모리 DB 접근을 원할 경우 주석해제
-	@Bean(initMethod = "start", destroyMethod = "stop")
-	public Server h2Server() throws SQLException {
-	    return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9099");
-	}
-*/
 }
