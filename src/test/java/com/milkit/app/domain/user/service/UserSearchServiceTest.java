@@ -96,11 +96,11 @@ class UserSearchServiceTest {
 		when(userRepository.findAll()).thenReturn(users);
 		userSearchService.saveAll();
 
-		String userId = users.get(0).getUserId();
-		UserDocument condition = UserDocument.builder().userId(userId).build();
+		User targetUser = users.get(0);
+		String userId = targetUser.getUserId();
 		PageRequest pageable = PageRequest.of(0, 10);
 
-		Page<UserDocument> foundDocs = userSearchService.searchByCondition(condition, pageable);
+		Page<UserDocument> foundDocs = userSearchService.searchByCondition(targetUser, pageable);
 
 		UserDocument matchedDocument = foundDocs.stream().filter(u -> u.getUserId().equals(userId)).findFirst().get();
 
