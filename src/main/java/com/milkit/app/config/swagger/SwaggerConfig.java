@@ -10,7 +10,7 @@ public class SwaggerConfig {
 	public GroupedOpenApi api() {
 		return GroupedOpenApi.builder()
 				.group("milkit-demo-public")
-				.pathsToMatch("**")
+				.pathsToMatch("/api/**")
 				.build();
 	}
 }

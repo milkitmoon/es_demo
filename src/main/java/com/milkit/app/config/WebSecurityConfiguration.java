@@ -50,10 +50,12 @@ public class WebSecurityConfiguration {
         return (web) -> web.ignoring().requestMatchers(
                 "/h2-console/**",
 //        		"/**",
-                "/v2/api-docs",
+                "/v3/api-docs",
+                "/v3/api-docs/**",
                 "/configuration/ui",
                 "/swagger-resources/**",
                 "/swagger-ui.html",
+                "/swagger-ui/**",
                 "/webjars/**",
                 "/swagger/**"
         );
