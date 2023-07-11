@@ -28,7 +28,7 @@
 - 어플리케이션 기동 후 아래와 같이 [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) 접속하여 API페이지를 조회할 수 있습니다.
 - springdoc-openapi v2.x 기반으로 설정되었습니다.
 - 기존 springfox, swagger2 기반으로 설정했을 경우 다음 문서를 참조하여 migration 을 진행해야 합니다 ->  https://springdoc.org/#migrating-from-springfox
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/61044774/250498056-f04e7b53-3415-4fe7-b4d1-d9c17ce16c5a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230710%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230710T071458Z&X-Amz-Expires=300&X-Amz-Signature=467b666cbb43295525bc580b770418f8fe2902574822881678a7342066e3be37&X-Amz-SignedHeaders=host&actor_id=61044774&key_id=0&repo_id=656056586" width="70%"></img>
+<img src="https://github.com/milkitmoon/es_demo/assets/61044774/9b522710-abb6-4d17-af55-34dd13ef94fa" width="70%"></img>
 
 # 3. 기본 기능 명세
 > 사용자 정보를 등록하고 조회 시 elasticsearch 의 문서를 검색하도록 하는 API를 제공합니다.
@@ -64,7 +64,7 @@
 
 > main Application 실행하기
 - gradle bootRun Task 를 통해 main Application 을 IDE 에서 바로 실행할 수 있습니다. (IntelliJ 기준)
- <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/61044774/252262694-d12d0731-4803-45fb-aacc-91a838a70961.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230710%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230710T071354Z&X-Amz-Expires=300&X-Amz-Signature=17af144571a477002cb2a4a4f0bc5f95ad870f5fab4f5ac7711362c2ae8afd44&X-Amz-SignedHeaders=host&actor_id=61044774&key_id=0&repo_id=656056586" width="60%"></img>
+ <img src="https://github.com/milkitmoon/es_demo/assets/61044774/15de0916-bf18-4dfd-8a13-41a51d4f5f33" width="60%"></img>
 
 
  # 6. 인증
@@ -73,7 +73,7 @@
 
 ## 6. 1 회원가입 
 - http://localhost:8080/api/user/signup URL로 POST로 인증정보를 전달합니다.
- <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/61044774/250506440-1fe186e6-0c5c-4cdd-9e78-8de871da9c54.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230710%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230710T071609Z&X-Amz-Expires=300&X-Amz-Signature=52663bb5199ac7c403629ba2f9fb00f4bee5122aedb2ff6553f6bbe997d1071e&X-Amz-SignedHeaders=host&actor_id=61044774&key_id=0&repo_id=656056586" width="90%"></img>
+ <img src="https://github.com/milkitmoon/es_demo/assets/61044774/c64dac78-d0ca-49b0-8bae-3518d5109062" width="90%"></img>
   * 계정ID, 패스워드, 사용자 구분값을 넣습니다.
   * 사용자 계정 ID는 Email 형식이어야 합니다.
   * 사용자 구분값은 <span style="color:blue">ROLE_MEMBER</span> (사용자) 와 <span style="color:blue">ROLE_ADMIN</span> (관리자) 로 지정합니다.
@@ -87,7 +87,7 @@
   ```
 ## 6. 2 인증요청
 - http://localhost:8080/login URL로 POST로 인증정보를 전달합니다.
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/61044774/250506470-30d04f90-e8e8-4430-896a-c2398f68f1cf.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230710%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230710T071715Z&X-Amz-Expires=300&X-Amz-Signature=5e49fe4e22788d30415caa503f8cb673d4decfef0f231b6beb8cc892b5bd2c9c&X-Amz-SignedHeaders=host&actor_id=61044774&key_id=0&repo_id=656056586" width="90%"></img>
+<img src="https://github.com/milkitmoon/es_demo/assets/61044774/88cfd257-1121-4780-a286-1efbfd7bd4eb" width="90%"></img>
   * 사용자 계정은 가입한 사용자 정보로 지정할 수 있습니다.
   * 사용자 계정은 POST Body에 다음과 같은 형식의 json 값을 설정합니다.
   ```javascript
@@ -102,7 +102,7 @@
     "code": "0",                      /*  응답코드    */
     "message": "성공했습니다",          /*  메시지    */
     "value": {
-      "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTk0iOiLqtIDrpqzsnpAiLCJhdXRoUm9sZSI6IlJPTEVfQURNSU4iLCJuYW1lIjoiYWRtaW4iLCJleHAiOjE2MDAyMzQxMjgsImlhdCI6MTYwMDIzMjMyOH0.hYTzcG5nDhdVn4OVbrrH7ybSLwBxq1Fm2O9A60uk8Zw",  /*  액세스 토큰 (API 이용시 헤더에 등록)    *9
+      "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTk0iOiLqtIDrpqzsnpAiLCJhdXRoUm9sZSI6IlJPTEVfQURNSU4iLCJuYW1lIjoiYWRtaW4iLCJleHAiOjE2MDAyMzQxMjgsImlhdCI6MTYwMDIzMjMyOH0.hYTzcG5nDhdVn4OVbrrH7ybSLwBxq1Fm2O9A60uk8Zw",  /*  액세스 토큰 (API 이용시 헤더에 등록)    */
       "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyTk0iOiLqtIDrpqzsnpAiLCJhdXRoUm9sZSI6IlJPTEVfQURNSU4iLCJuYW1lIjoiYWRtaW4iLCJleHAiOjE2MDE0NDE5MzAsImlhdCI6MTYwMDIzMjMzMH0.MZLH17FUuUqYzlZDQ2AZDcRnSvxT2QJJeLHhiwtJFDo", /*  리프레시 토큰 (토큰을 리시프레시 할 시 헤더에 등록)    */
       "tokenType": "bearer"       /*  인증 토큰 타입    */
     }
@@ -111,7 +111,7 @@
 
 ## 6. 3 API 호출 예
 - http://localhost:8080/api/user?role=ROLE_MEMBER 등과 같이 서버에서 제공하는 api를 호출하여 API 명세에 제공된 정보를 요청합니다.
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/61044774/250509623-3a0081ac-4ca5-4e1c-ac3a-d269101d06ba.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230710%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230710T071741Z&X-Amz-Expires=300&X-Amz-Signature=aca0add9d6ef55b778af7f474e1bbfda4b22a56dde75843761c5e9cd7adc6f4f&X-Amz-SignedHeaders=host&actor_id=61044774&key_id=0&repo_id=656056586" width="90%"></img>
+<img src="https://github.com/milkitmoon/es_demo/assets/61044774/1a619c80-c0d8-4d2e-b4c9-cd2e104976d8" width="90%"></img>
   * <span style="color:red">사용자는 API 호출 시 상기 [인증요청] 에서 응답받은 JWT accessToken 값을 HTTP Header의 Authorization 항목에 입력하여 전송하여야 합니다.</span>  
     ex) Request HEADER의 Authorization 값 형식
     ```html

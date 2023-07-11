@@ -3,6 +3,7 @@ package com.milkit.app.domain.user;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -43,6 +44,7 @@ public class User implements UserDetails, JwtDetails {
     
     @Column(name = "PASSWORD")
     @Schema(description = "사용자계정 비밀번호")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "ROLE")

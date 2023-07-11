@@ -1,12 +1,12 @@
 package com.milkit.app.api.user;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.milkit.app.common.ErrorCodeEnum;
 import com.milkit.app.common.exception.ServiceException;
 import com.milkit.app.domain.user.User;
 import com.milkit.app.domain.user.service.UserHandlerServiceImpl;
-import com.milkit.app.domain.user.service.UserServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Map;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -53,7 +56,7 @@ public class SignUpApiTest {
         when(userHandlerService.signup(newUser)).thenReturn(newUser);
 
         mvc.perform(MockMvcRequestBuilders.post("/api/user/signup")
-            .content(objectMapper.writeValueAsString(newUser))
+            .content(getSerializedBody(newUser))
                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")).andDo(print())
                 .andExpect(status().isOk())
@@ -79,7 +82,7 @@ public class SignUpApiTest {
                 .thenThrow(new ServiceException(ErrorCodeEnum.InvalidEmailFormException.getCode(), new String[]{newUser.getUserId()}));
 
         mvc.perform(MockMvcRequestBuilders.post("/api/user/signup")
-                        .content(objectMapper.writeValueAsString(newUser))
+                        .content(getSerializedBody(newUser))
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")).andDo(print())
                 .andExpect(status().isConflict())
@@ -87,5 +90,12 @@ public class SignUpApiTest {
                 .andExpect(jsonPath("message").value("이메일 형식이 아닙니다. 입력정보를 확인해 주세요. 계정ID:"+newUser.getUserId()))
                 .andExpect(jsonPath("value").isEmpty())
         ;
+    }
+
+    private String getSerializedBody(User user) throws JsonProcessingException {
+        Map<String, Object> properties = objectMapper.convertValue(user, Map.class);
+        properties.put("password", user.getPassword());
+
+        return objectMapper.writeValueAsString(properties);
     }
 }
