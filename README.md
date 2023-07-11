@@ -28,7 +28,7 @@
 - 어플리케이션 기동 후 아래와 같이 [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) 접속하여 API페이지를 조회할 수 있습니다.
 - springdoc-openapi v2.x 기반으로 설정되었습니다.
 - 기존 springfox, swagger2 기반으로 설정했을 경우 다음 문서를 참조하여 migration 을 진행해야 합니다 ->  https://springdoc.org/#migrating-from-springfox
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/61044774/250498056-f04e7b53-3415-4fe7-b4d1-d9c17ce16c5a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230710%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230710T071458Z&X-Amz-Expires=300&X-Amz-Signature=467b666cbb43295525bc580b770418f8fe2902574822881678a7342066e3be37&X-Amz-SignedHeaders=host&actor_id=61044774&key_id=0&repo_id=656056586" width="70%"></img>
+<img src="https://github.com/milkitmoon/es_demo/assets/61044774/2648bfe3-30ab-4020-9434-4b7585ad4e19" width="70%"></img>
 
 # 3. 기본 기능 명세
 > 사용자 정보를 등록하고 조회 시 elasticsearch 의 문서를 검색하도록 하는 API를 제공합니다.
