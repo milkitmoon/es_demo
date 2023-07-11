@@ -63,7 +63,6 @@ public class UserHandlerServiceImpl {
 	    return userService.select(userId);
 	}
 
-	@Transactional
     public User save(final User member) {
 		User user = userService.save(member);
 		userSearchService.save(user);
