@@ -16,10 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.core.SearchHitSupport;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,22 +77,22 @@ public class UserHandlerServiceImpl {
 	public Page<User> findByRole(String role, Pageable pageable) {
 		Page<UserDocument> userDocuments = userSearchService.findByRole(role, pageable);
 
-		return searchByDocuments(userDocuments, pageable);
+		return searchUsersByDocuments(userDocuments, pageable);
 	}
 
 	public Page<User> findByUseYn(String useYn, Pageable pageable) {
 		Page<UserDocument> userDocuments = userSearchService.findByUseYn(useYn, pageable);
 
-		return searchByDocuments(userDocuments, pageable);
+		return searchUsersByDocuments(userDocuments, pageable);
 	}
 
 	public Page<User> searchByCondition(User user, Pageable pageable) {
-		Page<UserDocument> userDocuments = userSearchService.searchByCondition(user, pageable);
+		Page<Long> ids = userSearchService.searchIdsByCondition(user, pageable);
 
-		return searchByDocuments(userDocuments, pageable);
+		return userService.select(ids.getContent(), pageable);
 	}
 
-	public Page<User> searchByDocuments(Page<UserDocument> userDocuments, Pageable pageable) {
+	public Page<User> searchUsersByDocuments(Page<UserDocument> userDocuments, Pageable pageable) {
 		List<Long> ids = userDocuments
 				.stream()
 				.map(e -> e.getId())

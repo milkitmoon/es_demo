@@ -1,17 +1,18 @@
 package com.milkit.app.domain.user.repository;
 
-import com.milkit.app.domain.user.User;
 import com.milkit.app.domain.user.UserDocument;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.SearchHitSupport;
-import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.SearchPage;
+import org.springframework.data.elasticsearch.core.*;
 import org.springframework.data.elasticsearch.core.query.Criteria;
 import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -25,6 +26,23 @@ public class UserSearchQueryRepository {
         SearchHits<UserDocument> searchHits = operations.search(query, UserDocument.class);
 
         return SearchHitSupport.searchPageFor(searchHits, pageable);
+    }
+
+    public Page<Long> findIdsByCondition(UserDocument userDocument, Pageable pageable) {
+        CriteriaQuery query = createConditionQuery(userDocument).setPageable(pageable);
+
+        SearchHits<UserDocument> searchHits = operations.search(query, UserDocument.class);
+
+        return searchPageForIds(searchHits, pageable);
+    }
+
+    private Page<Long> searchPageForIds(SearchHits<UserDocument> searchHits, Pageable pageable) {
+        List<Long> documentIds = new ArrayList<>();
+        for (SearchHit hit : searchHits) {
+            documentIds.add(Long.parseLong(hit.getId()));
+        }
+
+        return new PageImpl<>(documentIds, pageable, searchHits.getTotalHits());
     }
 
     private CriteriaQuery createConditionQuery(UserDocument userDocument) {

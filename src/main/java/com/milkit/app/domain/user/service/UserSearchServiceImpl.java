@@ -85,6 +85,10 @@ public class UserSearchServiceImpl {
 		return (Page<UserDocument>)SearchHitSupport.unwrapSearchHits(userSearchQueryRepository.findByCondition(UserDocument.from(user), pageable));
 	}
 
+	public Page<Long> searchIdsByCondition(User user, Pageable pageable) {
+		return userSearchQueryRepository.findIdsByCondition(UserDocument.from(user), pageable);
+	}
+
 	public void deleteAll() {
 		userSearchRepository.deleteAll();
 	}
