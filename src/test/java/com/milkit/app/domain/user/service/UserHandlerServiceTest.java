@@ -93,7 +93,7 @@ class UserHandlerServiceTest {
 	@Test
 	@DisplayName("6. 사용자문서 조건검색 테스트.")
 	public void searchByCondition_test() {
-		List<User> users = new ArrayList<>();
+		List<User> savedUsers = new ArrayList<>();
 
 		User user1 = User.builder()
 				.userId("test1@milkit.com")
@@ -109,19 +109,18 @@ class UserHandlerServiceTest {
 				.description("일반사용자 입니다")
 				.build();
 
-		users.add(user1);
-		users.add(user2);
+		savedUsers.add(user1);
+		savedUsers.add(user2);
 
-		userHandlerService.saveAll(users);
+		String extractionUserId = user1.getUserId();
+		userHandlerService.saveAll(savedUsers);
 
-		User targetUser = users.get(0);
-		String userId = targetUser.getUserId();
+		User searchingUser = User.builder().description("일반사용자").build();
 		PageRequest pageable = PageRequest.of(0, 10);
 
-		Page<User> foundUsers = userHandlerService.searchByCondition(targetUser, pageable);
+		Page<User> foundUsers = userHandlerService.searchByCondition(searchingUser, pageable);
+		User matchedUser = foundUsers.stream().filter(u -> u.getUserId().equals(extractionUserId)).findFirst().get();
 
-		User matchedUser = foundUsers.stream().filter(u -> u.getUserId().equals(userId)).findFirst().get();
-
-		assertThat(userId).isEqualTo(matchedUser.getUserId());
+		assertThat(extractionUserId).isEqualTo(matchedUser.getUserId());
 	}
 }
